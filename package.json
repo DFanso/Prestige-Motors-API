@@ -1,0 +1,17 @@
+{
+  "name": "prestige-motors-api",
+  "version": "1.0.0",
+  "description": "Prestige Motors API created using Nodejs,Express,TypeScript,MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon"
+  },
+  "author": "dfanso",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  }
+}
