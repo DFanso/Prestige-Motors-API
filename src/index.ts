@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import authRoutes from './routes/authRoutes';
 
 
 const app = express();
@@ -16,10 +17,11 @@ mongoose.connect(process.env.MONGODB_URI!, { retryWrites: true, w: "majority" })
 // Middleware
 app.use(bodyParser.json());
 
-
-
+app.use('/api/auth', authRoutes);
 
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+
