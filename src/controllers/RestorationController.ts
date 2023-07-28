@@ -6,12 +6,13 @@ import multerS3 from 'multer-s3';
 import dotenv from 'dotenv';
 dotenv.config();
 
+
 const s3 = new S3Client({
   region: process.env.Vultr_REGION,
   endpoint: process.env.Vultr_ENDPOINT,
   credentials: {
-    accessKeyId: process.env.Vultr_ACCESS_KEY_ID || '',
-    secretAccessKey: process.env.Vultr_ENDPOINT || '',
+    accessKeyId: process.env.Vultr_ACCESS_KEY_ID || ' ' ,
+    secretAccessKey: process.env.Vultr_SECRET_ACCESS_KEY || ' ',
   },
 });
 
