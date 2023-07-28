@@ -1,7 +1,12 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import cors from 'cors';
 import bodyParser from 'body-parser';
 import authRoutes from './routes/authRoutes';
+import restorationRoutes from './routes/restorationRoutes';
+import dotenv from 'dotenv';
+
+
 
 
 const app = express();
@@ -16,8 +21,10 @@ mongoose.connect(process.env.MONGODB_URI!, { retryWrites: true, w: "majority" })
 
 // Middleware
 app.use(bodyParser.json());
+app.use(cors());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/restoration', restorationRoutes);
 
 // Start the server
 app.listen(port, () => {
