@@ -4,6 +4,8 @@ import { S3Client } from '@aws-sdk/client-s3';
 import multer from 'multer';
 import multerS3 from 'multer-s3';
 import dotenv from 'dotenv';
+import { v4 as uuidv4 } from 'uuid';
+import path from 'path';
 dotenv.config();
 
 
@@ -22,7 +24,10 @@ export const upload = multer({
     bucket: 'prestige',
     acl: 'public-read',
     key: function (req, file, cb) {
-      cb(null, Date.now().toString() + '_' + file.originalname);
+      const uniqueID = uuidv4(); // Generate a unique ID for the file
+      const fileExtension = path.extname(file.originalname); // Get the original file extension
+      const uniqueFilename = uniqueID + fileExtension;
+      cb(null, uniqueFilename);
     },
   }),
 });
