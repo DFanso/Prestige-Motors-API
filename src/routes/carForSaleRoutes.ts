@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { createCarForSale, upload, getCarForSaleById, getAllCarsForSale, updateCarForSale, deleteCarForSale } from '../controllers/CarForSaleController';
-
+import {authenticateToken}  from '../middlewares/authMiddleware'
 const router = Router();
 
-router.post('/', upload.array('photos', 4), createCarForSale);
+router.post('/',authenticateToken, upload.array('photos', 4), createCarForSale);
 router.get('/:id', getCarForSaleById);
 router.get('/', getAllCarsForSale);
-router.put('/:id', updateCarForSale);
-router.delete('/:id', deleteCarForSale);
+router.put('/:id',authenticateToken, updateCarForSale);
+router.delete('/:id',authenticateToken, deleteCarForSale);
 
 export default router;
