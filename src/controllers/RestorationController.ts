@@ -77,3 +77,88 @@ export async function createRestoration(req: Request, res: Response) {
     res.status(500).json({ message: 'Failed to create restoration vehicle' });
   }
 }
+
+
+export async function getRestorationById(req: Request, res: Response) {
+  try {
+    const restorationId = req.params.id;
+
+    const restoration: IRestoration | null = await Restoration.findById(restorationId);
+
+    if (!restoration) {
+      return res.status(404).json({ message: 'Restoration not found' });
+    }
+
+    res.json(restoration);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to fetch restoration vehicle' });
+  }
+}
+
+export async function getAllRestorations(req: Request, res: Response) {
+  try {
+    const restorations: IRestoration[] = await Restoration.find().sort({ _id: -1 });
+
+    res.json(restorations);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to fetch restoration vehicles' });
+  }
+}
+
+export async function updateRestoration(req: Request, res: Response) {
+  try {
+    const restorationId = req.params.id;
+    const updateFields: Partial<IRestoration> = {}; // Partial<IRestoration> allows us to update only selected fields
+
+    const {
+      carName,
+      smallDescription,
+      largeDescription,
+      transmission,
+      mileage,
+      interiorColor,
+      exteriorColor,
+    } = req.body;
+
+    // Check each field in req.body and add it to updateFields if it is not empty
+    if (carName !== undefined && carName.trim() !== '') {
+      updateFields.carName = carName;
+    }
+    if (smallDescription !== undefined && smallDescription.trim() !== '') {
+      updateFields.smallDescription = smallDescription;
+    }
+    if (largeDescription !== undefined && largeDescription.trim() !== '') {
+      updateFields.largeDescription = largeDescription;
+    }
+    if (transmission !== undefined && transmission.trim() !== '') {
+      updateFields.transmission = transmission;
+    }
+    if (mileage !== undefined) {
+      updateFields.mileage = mileage;
+    }
+    if (interiorColor !== undefined && interiorColor.trim() !== '') {
+      updateFields.interiorColor = interiorColor;
+    }
+    if (exteriorColor !== undefined && exteriorColor.trim() !== '') {
+      updateFields.exteriorColor = exteriorColor;
+    }
+
+    // Perform the update using the updateFields object
+    const restoration: IRestoration | null = await Restoration.findByIdAndUpdate(
+      restorationId,
+      updateFields,
+      { new: true } // Return the updated document
+    );
+
+    if (!restoration) {
+      return res.status(404).json({ message: 'Restoration not found' });
+    }
+
+    res.json(restoration);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to update restoration vehicle' });
+  }
+}
