@@ -4,6 +4,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import authRoutes from './routes/authRoutes';
 import restorationRoutes from './routes/restorationRoutes';
+import carForSaleRoutes from './routes/carForSaleRoutes';
 import dotenv from 'dotenv';
 
 
@@ -25,6 +26,8 @@ app.use(cors());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/restoration', restorationRoutes);
+app.use('/api/carForSale', carForSaleRoutes);
+
 
 // Start the server
 app.listen(port, () => {
