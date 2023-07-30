@@ -162,3 +162,20 @@ export async function updateRestoration(req: Request, res: Response) {
     res.status(500).json({ message: 'Failed to update restoration vehicle' });
   }
 }
+
+export async function deleteRestoration(req: Request, res: Response) {
+  try {
+    const restorationId = req.params.id;
+
+    const restoration: IRestoration | null = await Restoration.findByIdAndDelete(restorationId);
+
+    if (!restoration) {
+      return res.status(404).json({ message: 'Restoration not found' });
+    }
+
+    res.json({ message: 'Restoration deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to delete restoration vehicle' });
+  }
+}
