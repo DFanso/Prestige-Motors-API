@@ -6,6 +6,7 @@ import authRoutes from './routes/authRoutes';
 import restorationRoutes from './routes/restorationRoutes';
 import carForSaleRoutes from './routes/carForSaleRoutes';
 import dotenv from 'dotenv';
+import {sendEmail} from './utils/emailSend'
 
 
 
@@ -27,6 +28,7 @@ app.use(cors());
 app.use('/api/auth', authRoutes);
 app.use('/api/restoration', restorationRoutes);
 app.use('/api/carForSale', carForSaleRoutes);
+app.use('/api/emailSend',sendEmail)
 
 
 // Start the server
