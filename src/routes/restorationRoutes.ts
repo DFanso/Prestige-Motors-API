@@ -5,7 +5,7 @@ import {authenticateToken}  from '../middlewares/authMiddleware'
 const router = Router();
 
 // Create a new restoration vehicle
-router.post('/',authenticateToken,upload.array('photos', 4), createRestoration);
+router.post('/',authenticateToken,upload.array('photos'), createRestoration);
 router.get('/:id', getRestorationById);
 router.get('/', getAllRestorations);
 router.put('/:id',authenticateToken, updateRestoration);
