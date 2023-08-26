@@ -3,7 +3,7 @@ import { createCarForSale, upload, getCarForSaleById, getAllCarsForSale, updateC
 import {authenticateToken}  from '../middlewares/authMiddleware'
 const router = Router();
 
-router.post('/',authenticateToken, upload.array('photos', 4), createCarForSale);
+router.post('/',authenticateToken, upload.array('photos'), createCarForSale);
 router.get('/:id', getCarForSaleById);
 router.get('/', getAllCarsForSale);
 router.put('/:id',authenticateToken, updateCarForSale);
